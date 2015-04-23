@@ -58,15 +58,15 @@
     
     switch (_rotation) {
         case 0:
-            rotationValue = _flippedUpDown ? degreesToRadians(120) : degreesToRadians(-120);
+            rotationValue = _flippedUpDown ? degreesToRadians(120) : degreesToRadians(120+180);
             _rotation = 1;
             break;
         case 1:
-            rotationValue = _flippedUpDown ? degreesToRadians(240) : degreesToRadians(-120);
+            rotationValue = _flippedUpDown ? degreesToRadians(240) : degreesToRadians(240+180);
             _rotation = 2;
             break;
         case 2:
-            rotationValue = _flippedUpDown ? degreesToRadians(0) : degreesToRadians(-120);
+            rotationValue = _flippedUpDown ? degreesToRadians(0) : degreesToRadians(0+180);
             _rotation = 0;
             break;
         default:
