@@ -26,7 +26,6 @@
                                                                    self.view.bounds.size.width / 2)];
     
     _rotationView.center = self.view.center;
-    _rotationView.backgroundColor = [UIColor grayColor];
     
     [self.view addSubview:_rotationView];
 }

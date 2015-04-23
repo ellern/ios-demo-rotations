@@ -79,19 +79,24 @@
 }
 
 - (void)flipUpDown {
-    NSLog(@"flipUpDown - %@", self.description);
-    
     double toValue = _flippedUpDown ? M_PI : M_PI / 180.0;
     _flippedUpDown = !_flippedUpDown;
     
-    _baseLayer.transform = CATransform3DMakeRotation(toValue, 0, 0, 1.0f);
+    _baseLayer.transform = CATransform3DMakeRotation(toValue, 1.0f, 0, 0);
+    
+    NSLog(@"flipUpDown - %@", self.description);
 }
 
 - (void)flipLeftRight {
+    double toValue = _flippedLeftRight ? M_PI : M_PI / 180.0;
+    _flippedLeftRight = !_flippedLeftRight;
+    
     NSInteger left = self.Left;
     NSInteger right = self.Right;
     self.Left = right;
     self.Right = left;
+    
+    _baseLayer.transform = CATransform3DMakeRotation(toValue, 0, 1.0f, 0);
     
     NSLog(@"flipLeftRight - %@", self.description);
 }
