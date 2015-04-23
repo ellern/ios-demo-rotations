@@ -11,9 +11,6 @@
 @interface RotationView ()
 
 @property(nonatomic, strong, readwrite) CAShapeLayer *baseLayer;
-@property(nonatomic, assign, readwrite) BOOL flippedUpDown;
-@property(nonatomic, assign, readwrite) BOOL flippedLeftRight;
-@property(nonatomic, assign, readwrite) NSInteger rotation;
 
 @end
 
@@ -24,9 +21,6 @@
     
     if (self) {
         _baseLayer = [self baseLayer:frame];
-        _flippedUpDown = YES;
-        _flippedLeftRight = NO;
-        _rotation = 0;
         
         self.Left = Green;
         self.Right = Blue;
@@ -54,49 +48,24 @@
     self.Middle = right;
     self.Right = left;
     
-    double rotationValue;
+    _baseLayer.transform = CATransform3DConcat(_baseLayer.transform, CATransform3DMakeRotation(degreesToRadians(120), 0,0,1));
     
-    switch (_rotation) {
-        case 0:
-            rotationValue = _flippedUpDown ? degreesToRadians(120) : degreesToRadians(120+180);
-            _rotation = 1;
-            break;
-        case 1:
-            rotationValue = _flippedUpDown ? degreesToRadians(240) : degreesToRadians(240+180);
-            _rotation = 2;
-            break;
-        case 2:
-            rotationValue = _flippedUpDown ? degreesToRadians(0) : degreesToRadians(0+180);
-            _rotation = 0;
-            break;
-        default:
-            rotationValue = M_PI;
-            break;
-    }
-    
-    _baseLayer.transform = CATransform3DMakeRotation(rotationValue, 0, 0, 1.0f);
     NSLog(@"rotate - %@", self.description);
 }
 
 - (void)flipUpDown {
-    double toValue = _flippedUpDown ? M_PI : M_PI / 180.0;
-    _flippedUpDown = !_flippedUpDown;
-    
-    _baseLayer.transform = CATransform3DMakeRotation(toValue, 1.0f, 0, 0);
+    _baseLayer.transform = CATransform3DConcat(_baseLayer.transform, CATransform3DMakeRotation(M_PI, 1.0f, 0, 0));
     
     NSLog(@"flipUpDown - %@", self.description);
 }
 
 - (void)flipLeftRight {
-    double toValue = _flippedLeftRight ? M_PI : M_PI / 180.0;
-    _flippedLeftRight = !_flippedLeftRight;
-    
     NSInteger left = self.Left;
     NSInteger right = self.Right;
     self.Left = right;
     self.Right = left;
     
-    _baseLayer.transform = CATransform3DMakeRotation(toValue, 0, 1.0f, 0);
+    _baseLayer.transform = CATransform3DConcat(_baseLayer.transform, CATransform3DMakeRotation(M_PI, 0, 1.0f, 0));
     
     NSLog(@"flipLeftRight - %@", self.description);
 }
